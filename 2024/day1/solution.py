@@ -24,7 +24,7 @@ def similarity_scores(arr0: list, arr1: list) -> int:
     return sim_score
 
 
-with open("./day1/input.txt") as file:
+with open("2024/day1/input.txt") as file:
     arrays = file.readlines()
     arr0, arr1 = [], []
     for line in arrays:
