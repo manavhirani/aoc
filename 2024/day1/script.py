@@ -1,2 +1,5 @@
 # A less verbose functional solution
-import numpy as np; print(sum(map(lambda x: abs(x[0] - x[1]), np.sort(np.array(list(map(str.split, open('2024/day1/input.txt').readlines()))).astype(int), axis=0))))
+# np.array(list(map(str.split, open('2024/day1/input.txt').readlines()))).astype(int).T = np.array(list(map(str.split, open('2024/day1/input.txt').readlines()))).astype(int).T
+# freqs = {item[0]:item[1] for item in np.array(np.unique(np.array(list(map(str.split, open('2024/day1/input.txt').readlines()))).astype(int).T[1], return_counts=True)).T}
+import numpy as np
+print(sum(map(lambda x: abs(x[0] - x[1]), np.sort(np.array(list(map(str.split, open('2024/day1/input.txt').readlines()))).astype(int).T.T, axis=0))), sum([e*{item[0]:item[1] for item in np.array(np.unique(np.array(list(map(str.split, open('2024/day1/input.txt').readlines()))).astype(int).T[1], return_counts=True)).T}.get(e, 0) for e in np.array(list(map(str.split, open('2024/day1/input.txt').readlines()))).astype(int).T[0]]))
