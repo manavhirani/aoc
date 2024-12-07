@@ -19,8 +19,20 @@ correct_updates = []
 incorrect_updates = []
 
 # Part Two
-def correct(update, i):
-    pass
+def correct(update: list):
+    local_rules = defaultdict(list)
+    for number in update:
+        if number not in local_rules:
+            local_rules[number].append(0)
+        for dep in kvs[number]:
+            if dep in update:
+                local_rules[number].append(dep)
+            
+    # print(local_rules)
+    print(local_rules)
+    print(update)
+    corrected = sorted(local_rules.items(), reverse=True, key=lambda pair: len(pair[1]))
+    return [pair[0] for pair in corrected]
 
 # Part One
 for update in updates:
@@ -29,16 +41,19 @@ for update in updates:
     for i in range(len(update) - 1):
         for check in update[i+1:]:
             if check not in kvs[update[i]]:
-                print(check, update[i])
-                print(kvs[update[i]])
+                # print(check, update[i])
+                # print(kvs[update[i]])
                 flag = False
-                incorrect_updates.append(correct(update), i)
+                incorrect_updates.append(correct(update))
                 break
         if not flag: break
     else: correct_updates.append(update)
 
+
 print(correct_updates)
+
 print(sum([int(update[len(update)//2]) for update in correct_updates]))
+print(sum([int(update[len(update)//2]) for update in incorrect_updates]))
 
 print(len(correct_updates), len(incorrect_updates), len(updates))
 
